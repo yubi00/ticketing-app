@@ -1,9 +1,10 @@
 import Link from 'next/link';
+
 export default ({ currentUser }) => {
   const links = [
-    !currentUser && { label: 'Sign Up', href: '/auth/signup' },
-    !currentUser && { label: 'Sign In', href: '/auth/signin' },
-    currentUser && { label: 'Sign Out', href: '/auth/signout' }
+    !currentUser && { label: 'Register', href: '/auth/signup' },
+    !currentUser && { label: 'Login', href: '/auth/signin' },
+    currentUser && { label: 'Logout', href: '/auth/signout' }
   ]
     .filter((linkConfig) => linkConfig)
     .map(({ label, href }) => {
@@ -18,7 +19,7 @@ export default ({ currentUser }) => {
   return (
     <nav className='navbar navbar-light bg-light'>
       <Link href='/'>
-        <a className='navbar-brand'>Buchu</a>
+        <a className='navbar-brand'>BuchuTicketing</a>
       </Link>
       <div className='d-flex justify-content-end'>
         <ul className='nav d-flex align-items-center'>{links}</ul>

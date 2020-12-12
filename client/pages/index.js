@@ -1,11 +1,7 @@
 import buildClient from '../api/build-client';
 
-const LandingPage = ({ currentUser }) => {
-  return (
-    <div>
-      <h1>Landing Page</h1>
-    </div>
-  );
+const LandingPage = () => {
+  return <div>Welcome to BuchuTicketing</div>;
 };
 
 LandingPage.getInitialProps = async (context) => {
