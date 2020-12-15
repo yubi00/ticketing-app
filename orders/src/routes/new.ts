@@ -59,12 +59,12 @@ router.post(
 
     // Publish an event saying that an order was created
     new OrderCreatedPublisher(natsWrapper.client).publish({
-      id: order.id,
+      id: order.id || '',
       status: order.status,
       userId: order.userId,
       expiresAt: order.expiresAt.toISOString(),
       ticket: {
-        id: ticket.id,
+        id: ticket.id || '',
         price: ticket.price
       }
     });
