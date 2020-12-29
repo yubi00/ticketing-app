@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@buchutickets/common": "^1.0.10",
+    "@buchutickets/common": "^1.0.12",
     "@types/bull": "^3.14.4",
     "bull": "^3.20.0",
     "node-nats-streaming": "^0.3.2",
