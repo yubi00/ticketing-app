@@ -1,23 +1,23 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response } from "express";
 import {
   requireAuth,
   validateRequest,
   NotFoundError,
   NotAuthorizedError
-} from '@buchutickets/common';
-import { body } from 'express-validator';
-import { Ticket } from '../models/tickets';
-import { TicketUpdatedPublisher } from '../events/publishers/tickets-updated-publisher';
-import { natsWrapper } from '../nats-wrapper';
+} from "@buchutickets/common";
+import { body } from "express-validator";
+import { Ticket } from "../models/tickets";
+import { TicketUpdatedPublisher } from "../events/publishers/tickets-updated-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
 router.put(
-  '/api/tickets/:id',
+  "/api/tickets/:id",
   requireAuth,
   [
-    body('title').not().isEmpty().withMessage('Title is required'),
-    body('price').isFloat({ gt: 0 }).withMessage('Price must be greater than 0')
+    body("title").not().isEmpty().withMessage("Title is required"),
+    body("price").isFloat({ gt: 0 }).withMessage("Price must be greater than 0")
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -39,10 +39,11 @@ router.put(
     await ticket.save();
 
     new TicketUpdatedPublisher(natsWrapper.client).publish({
-      id: ticket.id || '',
+      id: ticket.id || "",
       title: ticket.title,
       price: ticket.price,
-      userId: ticket.userId
+      userId: ticket.userId,
+      version: ticket.version
     });
 
     res.send(ticket);

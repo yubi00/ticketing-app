@@ -1,18 +1,18 @@
-import express, { Request, Response } from 'express';
-import { requireAuth, validateRequest } from '@buchutickets/common';
-import { body } from 'express-validator';
-import { Ticket } from '../models/tickets';
-import { TickerCreatedPublisher } from '../events/publishers/ticket-created-publisher';
-import { natsWrapper } from '../nats-wrapper';
+import express, { Request, Response } from "express";
+import { requireAuth, validateRequest } from "@buchutickets/common";
+import { body } from "express-validator";
+import { Ticket } from "../models/tickets";
+import { TickerCreatedPublisher } from "../events/publishers/ticket-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
 router.post(
-  '/api/tickets',
+  "/api/tickets",
   requireAuth,
   [
-    body('title').not().isEmpty().withMessage('title is required'),
-    body('price').isFloat({ gt: 0 }).withMessage('price must be greater than 0')
+    body("title").not().isEmpty().withMessage("title is required"),
+    body("price").isFloat({ gt: 0 }).withMessage("price must be greater than 0")
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -24,10 +24,11 @@ router.post(
     });
     await ticket.save();
     await new TickerCreatedPublisher(natsWrapper.client).publish({
-      id: ticket.id || '',
+      id: ticket.id || "",
       title: ticket.title,
       price: ticket.price,
-      userId: ticket.userId
+      userId: ticket.userId,
+      version: ticket.version
     });
     res.status(201).send(ticket);
   }
