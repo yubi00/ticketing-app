@@ -3,7 +3,8 @@ import {
   requireAuth,
   validateRequest,
   NotFoundError,
-  NotAuthorizedError
+  NotAuthorizedError,
+  BadRequestError
 } from "@buchutickets/common";
 import { body } from "express-validator";
 import { Ticket } from "../models/tickets";
@@ -26,6 +27,10 @@ router.put(
 
     if (!ticket) {
       throw new NotFoundError();
+    }
+
+    if (ticket.orderId) {
+      throw new BadRequestError("Cannot edit a reserved ticket");
     }
 
     if (req.currentUser!.id !== ticket.userId) {
