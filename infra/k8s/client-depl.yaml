@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: us.gcr.io/vibrant-grammar-298005/client
+          image: 12yubikhadka/client
 ---
 apiVersion: v1
 kind: Service
