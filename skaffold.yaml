@@ -10,7 +10,7 @@ build:
   googleCloudBuild:
     projectId: vibrant-grammar-298005
   artifacts:
-    - image: us.gcr.io/vibrant-grammar-298005/auth
+    - image: 12yubikhadka/auth
       context: auth
       docker:
         dockerfile: Dockerfile
