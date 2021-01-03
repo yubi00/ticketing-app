@@ -6,10 +6,10 @@ deploy:
       - ./infra/k8s/*
       - ./infra/k8s-dev/*
 build:
-  # local:
-  #   push: false
-  googleCloudBuild:
-    projectId: vibrant-grammar-298005
+  local:
+    push: false
+  # googleCloudBuild:
+  #   projectId: vibrant-grammar-298005
   artifacts:
     - image: 12yubikhadka/auth
       context: auth
@@ -19,7 +19,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: us.gcr.io/vibrant-grammar-298005/client
+    - image: 12yubikhadka/client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -27,7 +27,7 @@ build:
         manual:
           - src: "**/*.js"
             dest: .
-    - image: us.gcr.io/vibrant-grammar-298005/tickets
+    - image: 12yubikhadka/tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -35,7 +35,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: us.gcr.io/vibrant-grammar-298005/orders
+    - image: 12yubikhadka/orders
       context: orders
       docker:
         dockerfile: Dockerfile
@@ -43,7 +43,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: us.gcr.io/vibrant-grammar-298005/expiration
+    - image: 12yubikhadka/expiration
       context: expiration
       docker:
         dockerfile: Dockerfile
@@ -51,7 +51,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: us.gcr.io/vibrant-grammar-298005/payments
+    - image: 12yubikhadka/payments
       context: payments
       docker:
         dockerfile: Dockerfile
